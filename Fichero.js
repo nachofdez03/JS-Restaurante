@@ -3,11 +3,16 @@ class Dish {
   #description;
   #ingredients;
   #image;
+  #Categories;
+  #Allergens;
+
   constructor(name, description, ingredients, image) {
     this.#name = name;
     this.#description = description;
     this.#ingredients = ingredients;
     this.#image = image;
+    this.#Categories = [];
+    this.#Allergens = [];
   }
   get name() {
     return this.#name;
@@ -67,10 +72,12 @@ class Allergen {
 class Menu {
   #name;
   #description;
+  #Dishes;
 
   constructor(name, description) {
     this.#name = name;
     this.#description = description;
+    this.#Dishes = [];
   }
   get name() {
     return this.#name;
@@ -224,6 +231,7 @@ class RestaurantsManager {
       }
     }
   }
+  assignCategoryToDish(Dish, ...Categories) {}
 }
 
 let a = new Dish("hola", 2, 3, 4);
