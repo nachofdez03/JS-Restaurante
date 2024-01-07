@@ -336,7 +336,96 @@ class RestaurantsManager {
     this.#menus[index].Dishes[indice1] = dish2;
     this.#menus[index].Dishes[indice2] = dish;
   }
-  getDishesInCategory() {}
+
+  getDishesInCategory(category) {
+    let categorias = [];
+
+    for (const dish of this.#dishes) {
+      if (dish.Categories.includes(category)) {
+        categorias.push(dish);
+      }
+    }
+    let iterador = categorias[Symbol.iterator]();
+    return iterador;
+  }
+  getDishesWithAllergen(allergen) {
+    let alergias = [];
+
+    for (const dish of this.#dishes) {
+      if (dish.Allergens.includes(allergen)) {
+        alergias.push(dish);
+      }
+    }
+    let iterador = alergias[Symbol.iterator]();
+    return iterador;
+  }
+  findDishes(plato, callback) {
+    let platos = this.#dishes.filter(
+      (dish) => dish === plato && callback(dish)
+    );
+    return platos[Symbol.iterator]();
+  }
+
+  createDish(name, description, ingredients, image) {
+    let dish = this.#dishes.find((dish) => dish.name == name);
+
+    // Si esta registrado lo devuelve
+    if (dish) {
+      return dish;
+    } else {
+      // Si no lo crea y lo registra
+      dish = new Dish(name, description, ingredients, image);
+      this.#dishes.push(dish);
+    }
+  }
+  createMenu(name, description) {
+    let menu = this.#menus.find((menu) => menu.name == name);
+
+    // Si esta registrado lo devuelve
+    if (menu) {
+      return menu;
+    } else {
+      // Si no lo crea y lo registra
+      menu = new Menu(name, description);
+      this.#menus.push(menu);
+    }
+  }
+  createAllergen(name, description) {
+    let allergen = this.#allergens.find((allergen) => allergen.name == name);
+
+    if (allergen) {
+      return allergen;
+    } else {
+      allergen = new Allergen(name, description);
+      this.#allergens.push(allergen);
+    }
+  }
+  createCategory(name, description) {
+    let category = this.#categories.find((category) => category.name == name);
+
+    // Si esta registrado lo devuelve
+    if (category) {
+      return category;
+    } else {
+      // Si no lo crea y lo registra
+      category = new Category(name, description);
+      this.#categories.push(category);
+    }
+  }
+  createRestaurant(name, description, location) {
+    let restaurant = this.#restaurants.find(
+      (restaurant) => restaurant.name == name
+    );
+
+    // Si esta registrado lo devuelve
+    if (restaurant) {
+      return restaurant;
+    } else {
+      // Si no lo crea y lo registra
+      restaurant = new Restaurant(name, description, location);
+      this.#restaurants.push(restaurant);
+    }
+  }
 }
 
 let a = new Dish("hola", 2, 3, 4);
