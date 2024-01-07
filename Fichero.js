@@ -26,6 +26,12 @@ class Dish {
   get image() {
     return this.#image;
   }
+  get Categories() {
+    return this.#Categories;
+  }
+  get Allergens() {
+    return this.#Allergens;
+  }
   set name(newName) {
     this.#name = newName;
   }
@@ -84,6 +90,9 @@ class Menu {
   }
   get description() {
     return this.#description;
+  }
+  get Dishes() {
+    return this.#Dishes;
   }
   set name(newName) {
     this.#name = newName;
@@ -231,10 +240,109 @@ class RestaurantsManager {
       }
     }
   }
-  assignCategoryToDish(Dish, ...Categories) {}
+  assignCategoryToDish(dish, ...Categories) {
+    // Si el plato no esta en el sistema lo introducimos
+    if (!this.#dishes.includes(dish)) {
+      this.#dishes.push(dish);
+    }
+    // Si las categorias no estan en el sistema las introducimos
+    for (const category of Categories) {
+      if (!this.#categories.includes(category)) {
+        this.#categories.push(category);
+      }
+    }
+    // Ahora asignamos las categorias al plato
+    for (const category of Categories) {
+      if (!dish.Categories.includes(category)) {
+        dish.Categories.push(category);
+      }
+    }
+  }
+  deassignCategoryToDish(dish, ...Categories) {
+    for (const category of Categories) {
+      // Conseguimos el indice
+      let index = dish.Categories.indexOf(category);
+      if (!index == -1) {
+        dish.Categories.splice(index, 1);
+      }
+    }
+  }
+  // Igual pero para las alergias
+  assignAllergenToDish(dish, ...Allergens) {
+    // Si el plato no esta en el sistema lo introducimos
+    if (!this.#dishes.includes(dish)) {
+      this.#dishes.push(dish);
+    }
+    // Si las categorias no estan en el sistema las introducimos
+    for (const allergen of Allergens) {
+      if (!this.#allergens.includes(allergen)) {
+        this.#allergens.push(allergen);
+      }
+    }
+    // Ahora asignamos las categorias al plato
+    for (const allergen of Allergens) {
+      if (!dish.Allergens.includes(allergen)) {
+        dish.Allergens.push(allergen);
+      }
+    }
+  }
+  deassignAllergenToDish(dish, ...Allergens) {
+    for (const allergen of Allergens) {
+      // Conseguimos el indice
+      let index = dish.Allergens.indexOf(allergen);
+      if (!index == -1) {
+        dish.Allergens.splice(index, 1);
+      }
+    }
+  }
+  assignDishToMenu(menu, ...Dishes) {
+    // Si el menu no esta en el sistema lo introducimos
+    if (!this.#menus.includes(menu)) {
+      this.#menus.push(menu);
+    }
+    for (const dish of Dishes) {
+      if (!this.#dishes.includes(dish)) {
+        this.#dishes.push(dish);
+      }
+    }
+    for (const dish of Dishes) {
+      if (!menu.Dishes.includes(dish)) {
+        menu.Dishes.push(dish);
+      }
+    }
+  }
+  deassignDishToMenu(menu, ...Dishes) {
+    for (const dish of Dishes) {
+      // Conseguimos el indice
+      let index = menu.Dishes.indexOf(dish);
+      if (!index == -1) {
+        menu.Dishes.splice(index, 1);
+      }
+    }
+  }
+  changeDishesPositionsInMenu(menu, dish, dish2) {
+    if (
+      !this.#menus.includes(menu) ||
+      !this.#dishes.includes(dish) ||
+      !this.#dishes.includes(dish2)
+    ) {
+      console.error("Error: Menu or dishes not found in the system.");
+      return;
+    }
+    let index = this.#menus.indexOf(menu); // Sacamos el menu del array
+    let indice1 = this.#menus[index].Dishes.indexOf(dish); // Sacamos de ese menu la posicion del plato1
+    let indice2 = this.#menus[index].Dishes.indexOf(dish2); // Sacamos de ese menu la posicion del plato2
+
+    this.#menus[index].Dishes[indice1] = dish2;
+    this.#menus[index].Dishes[indice2] = dish;
+  }
+  getDishesInCategory() {}
 }
 
 let a = new Dish("hola", 2, 3, 4);
 console.log(a.name);
+let categoria = "nnn";
+a.Categories.push(categoria);
+console.log(a.Categories);
 a.name = "aa";
 console.log(a.name);
