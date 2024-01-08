@@ -439,10 +439,12 @@ let RestaurantsManager = function () {
   };
 };
 
-let a = new Dish("hola", 2, 3, 4);
-console.log(a.name);
-let categoria = "nnn";
-a.Categories.push(categoria);
-console.log(a.Categories);
-a.name = "aa";
-console.log(a.name);
+export {
+  Dish,
+  Category,
+  Allergen,
+  Menu,
+  Restaurant,
+  Coordinate,
+  RestaurantsManager,
+};
