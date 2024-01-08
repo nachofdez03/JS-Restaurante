@@ -429,12 +429,14 @@ let RestaurantsManager = function () {
       }
     }
   }
-  if (!instance) {
-    instance = new RestaurantsManager();
-    return instance;
-  } else {
-    return instance;
-  }
+  return {
+    getInstance: function () {
+      if (!instance) {
+        instance = new RestaurantsManager(systemName);
+      }
+      return instance;
+    },
+  };
 };
 
 let a = new Dish("hola", 2, 3, 4);
