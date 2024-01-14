@@ -1,3 +1,5 @@
+// Implementacion Antigua, La nueva esta en Fichero2.js
+/*
 class Dish {
   #name;
   #description;
@@ -136,7 +138,7 @@ class Coordinate {
     return this.#longitude;
   }
 }
-let RestaurantsManager = function () {
+let RestaurantsManager = (function () {
   let instance;
 
   class RestaurantsManager {
@@ -154,6 +156,10 @@ let RestaurantsManager = function () {
       this.#dishes = [];
       this.#menus = [];
       this.#restaurants = [];
+    }
+
+    get systemName() {
+      return this.#systemName;
     }
 
     getterDishes() {
@@ -430,14 +436,14 @@ let RestaurantsManager = function () {
     }
   }
   return {
-    getInstance: function () {
+    getInstance: function (systemName) {
       if (!instance) {
         instance = new RestaurantsManager(systemName);
       }
       return instance;
     },
   };
-};
+})();
 
 export {
   Dish,
@@ -448,3 +454,4 @@ export {
   Coordinate,
   RestaurantsManager,
 };
+*/
